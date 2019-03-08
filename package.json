@@ -1,0 +1,26 @@
+{
+  "name": "webpack-start",
+  "version": "1.0.0",
+  "description": "webpack 入门",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightzhu/webpack-start.git"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "lightzhu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lightzhu/webpack-start/issues"
+  },
+  "homepage": "https://github.com/lightzhu/webpack-start#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  }
+}
