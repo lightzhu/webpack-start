@@ -4,7 +4,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
 module.exports = {
   entry: {
-    app: "./src/index.js"
+    app: "./src/index.js",
+    react: "./src/js/react.js"
     // print: "./src/js/print.js"
   },
   //用于映射开发的代码，方便调试
@@ -36,12 +37,30 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
+        test: /\.(sass|scss)$/,
+        use: [
+          "style-loader",
+          "css-loader", 
+          "sass-loader"
+        ]
+      },
+      {
         test: /\.(png|svg|jpg|gif)$/,
         use: ["file-loader"]
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ["file-loader"]
+      },
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["es2015", "react"]
+          }
+        }
       }
     ]
   }

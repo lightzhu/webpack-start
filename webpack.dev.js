@@ -1,12 +1,6 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const webpack = require("webpack");
-module.exports = {
-  entry: {
-    app: "./src/index.js"
-    // print: "./src/js/print.js"
-  },
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+module.exports =merge(common, {
   //用于映射开发的代码，方便调试
   devtool: "inline-source-map",
   //修改配置文件，告诉开发服务器(dev server)，在哪里查找文件
@@ -15,18 +9,6 @@ module.exports = {
     port: "5000", //监听端口
     inline: true, //设置为true，当源文件改变的时候会自动刷新
     hot: true
-  },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      title: "出口管理"
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
   },
   // mode: "production",
   module: {
@@ -45,4 +27,4 @@ module.exports = {
       }
     ]
   }
-};
+});
