@@ -16,6 +16,12 @@ class App extends React.Component {
       </div>
     );
   }
+  componentDidMount(){
+    this.sayHello();
+  }
+  sayHello(){
+    alert("hello");
+  }
 };
 
 ReactDOM.render(<App></App>,  document.getElementById("app"));
