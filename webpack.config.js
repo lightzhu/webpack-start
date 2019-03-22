@@ -33,28 +33,21 @@ module.exports = {
   devServer: {
     contentBase: "/",
     port: "5000", //监听端口
-    inline: true, //设置为true，当源文件改变的时候会自动刷新
-    hot: true
+    //inline: true, //设置为true，当源文件改变的时候会自动刷新
+    hot: true,
+    hotOnly: true
   },
   plugins: [
     // new CleanWebpackPlugin(),
     ...HTMLPlugins,
-    // new HtmlWebpackPlugin({
-    //   title: "出口管理"
-    // }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new MiniCssExtractPlugin({
-      // 提取css插件
-      filename: "./css/[name].css",
-      chunkFilename: "./css/[name].css"
-    })
+    new webpack.HotModuleReplacementPlugin()
   ],
   output: {
     filename: "./js/[name].bundle.js",
     path: path.resolve(__dirname, "dist")
   },
-  // mode: "production",
+  //mode: "production",
   module: {
     rules: [
       {
@@ -63,8 +56,9 @@ module.exports = {
       },
       {
         test: /\.(sass|scss)$/,
+        exclude: /node_modules/,
         use: [
-          MiniCssExtractPlugin.loader,
+          "style-loader",
           {
             loader: "css-loader",
             options: {
@@ -72,7 +66,7 @@ module.exports = {
             }
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader"
           },
           {
             loader: "sass-loader",
@@ -84,7 +78,16 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"]
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]?[hash:5]",
+              outputPath: "./image/",
+              publicPath: "/image/"
+            }
+          }
+        ]
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
@@ -96,10 +99,26 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["es2015", "react"]
+            cacheDirectory: true,
+            presets: ["es2015", "react","stage-0"],
+            plugins: [
+              "react-hot-loader/babel",
+              [
+                "import",
+                {
+                  libraryName: "antd",
+                  libraryDirectory: "es",
+                  style: "css"
+                }
+              ]
+            ]
           }
         }
       }
     ]
+  },
+
+  performance: {
+    hints: false
   }
 };
