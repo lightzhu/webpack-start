@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { version, Button } from 'antd';
 import Header from './component/Header';
 // import 'antd/dist/antd.css';
-import "../css/react.scss"
+import "../sass/react.scss"
 class App extends React.Component {
   render() {
     return (
       <div>
 
         <Header>
-          
+
         </Header>
         <header>
           <ul>
