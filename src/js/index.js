@@ -1,33 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { version, Button } from 'antd';
-import Header from './component/Header';
+import React from "react";
+import ReactDOM from "react-dom";
+import { version, Button,message } from "antd";
+import Header from "./component/Header";
+import Body from "./component/Body";
 // import 'antd/dist/antd.css';
-import "../sass/react.scss"
+import "../sass/react.scss";
+message.config({
+  top: 200,
+  duration: 2,
+  maxCount: 3,
+});
 class App extends React.Component {
   render() {
     return (
       <div>
-
-        <Header>
-
-        </Header>
-        <header>
-          <ul>
-            <li>11111</li>
-            <li>22222</li>
-            <li>3333</li>
-          </ul>
-          <Button type="primary">Hello</Button>
-        </header>
+        <Header />
+        <Body></Body>
       </div>
     );
   }
-  componentDidMount(){
+  componentDidMount() {
     this.sayHello();
   }
-  sayHello(){
+  sayHello() {
     console.log("hello tototoo!");
   }
-};
-ReactDOM.render(<App></App>,  document.getElementById("app"));
+}
+ReactDOM.render(<App />, document.getElementById("app"));

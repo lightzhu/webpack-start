@@ -28,12 +28,12 @@ module.exports = {
   //   // print: "./src/js/print.js"
   // },
   //用于映射开发的代码，方便调试
-  devtool: "inline-source-map",
+  devtool: "eval-source-map", //"inline-source-map",
   //修改配置文件，告诉开发服务器(dev server)，在哪里查找文件
   devServer: {
     contentBase: "/",
     port: "5000", //监听端口
-    //inline: true, //设置为true，当源文件改变的时候会自动刷新
+    inline: true, //设置为true，当源文件改变的时候会自动刷新
     hot: true,
     hotOnly: true
   },
@@ -48,6 +48,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist")
   },
   //mode: "production",
+  resolve: {},
   module: {
     rules: [
       {
@@ -100,7 +101,7 @@ module.exports = {
           loader: "babel-loader",
           options: {
             cacheDirectory: true,
-            presets: ["es2015", "react","stage-0"],
+            presets: ["es2015", "react", "stage-0"],
             plugins: [
               "react-hot-loader/babel",
               [

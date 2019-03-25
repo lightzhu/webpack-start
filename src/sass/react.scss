@@ -4,9 +4,21 @@ body{
   background-size: 100% 100%;
 }
 ul{
-  background: blue;
   li{
-    color: red;
     font-size: 20px;
+  }
+}
+.add-input{
+  width: 80%;
+}
+.tools{
+  padding-right: 100px;
+  ul{
+    float: right;
+  }
+  .list-content{
+    display: block;
+    width: 100%;
+    font-size:16px;
   }
 }
