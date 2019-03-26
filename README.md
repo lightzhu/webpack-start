@@ -14,3 +14,7 @@ webpack构建应用入门
 babel-loader 要设置 //["import",{libraryName: "antd", libraryDirectory: "es",style: "css"}]
 # "stage-0"
 用于解决无法支撑箭头函数及其他一些新语法的问题
+# 关于 redux的简单使用
+* 1、创建一个action,表明你要干什么;
+* 2、创建一个reducer,用来处理action的具体操作,reducer中可以初始化数据，这个数据就是相关组件中的state数据;
+* 3、在组件中创建一个对应reducer的store,这个store可以将action的内容通过dispatch传递给对应的reducer,reducer处理结束后,store可以通过subscribe获取更新后的数据。
