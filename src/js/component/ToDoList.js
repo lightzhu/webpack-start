@@ -1,10 +1,11 @@
 import React from "react";
-import { List, Input, Typography, message } from "antd";
+import { List, Input, Typography, message, Icon } from "antd";
 import { createStore } from "redux";
 import todos from "../reducers/index";
-import { addTodo, deleteTodo } from "../actions/index";
-let store = createStore(todos);//根据reducer创建一个store
+import { allTodo,addTodo, deleteTodo, completeTodo,didTodo,planTodo } from "../actions/index";
+let store = createStore(todos); //根据reducer创建一个store
 import { hot } from "react-hot-loader/root";
+import TodoHead from "./TodoHead";
 class ToDoList extends React.Component {
   state = {
     data: store.getState().todos.list,
@@ -25,11 +26,19 @@ class ToDoList extends React.Component {
     }
   }
   completeTask(index) {
-    console.log(index);
+    store.dispatch(completeTodo(index));
   }
   deleteTask(index) {
-    console.log(index);
     store.dispatch(deleteTodo(index));
+  }
+  changeType(type) {
+    if(type==='schedule'){
+      store.dispatch(planTodo());
+    }else if(type==='compele'){
+      store.dispatch(didTodo());
+    }else{
+      store.dispatch(allTodo());
+    }
   }
   render() {
     return (
@@ -51,7 +60,7 @@ class ToDoList extends React.Component {
         </h3>
         <List
           size="large"
-          header={<div>Header</div>}
+          header={<TodoHead changeType={this.changeType} />}
           footer={<div>Footer</div>}
           dataSource={this.state.data}
           renderItem={item => {
@@ -60,14 +69,21 @@ class ToDoList extends React.Component {
                 className="tools"
                 actions={[
                   <a onClick={this.completeTask.bind(this, item.index)}>
-                    完成
+                    <Icon
+                      type={item.complete ? "pushpin" : "flag"}
+                      style={{ marginRight: "10px" }}
+                    />
+                    {item.complete ? "重置" : "完成"}
                   </a>,
-                  <a onClick={this.deleteTask.bind(this, item.index)}>删除</a>
+                  <a onClick={this.deleteTask.bind(this, item.index)}>
+                    <Icon type="delete" style={{ marginRight: "10px" }} />
+                    删除
+                  </a>
                 ]}
               >
                 <Typography.Text
                   className="list-content"
-                  delete={item.complete === "true" ? true : false}
+                  delete={item.complete ? true : false}
                 >
                   {item.text}
                 </Typography.Text>
@@ -78,12 +94,12 @@ class ToDoList extends React.Component {
       </div>
     );
   }
-  componentWillMount(){
+  componentWillMount() {
     let that = this;
-    store.subscribe(() =>{
+    store.subscribe(() => {
       that.setState({
-        data:store.getState().todos.list,
-      })
+        data: store.getState().todos.list
+      });
     });
   }
   componentDidMount() {

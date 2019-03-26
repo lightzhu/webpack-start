@@ -69,7 +69,7 @@ class Body extends React.Component {
               </Menu>
             </Sider>
           </Sider>
-          <Content style={{margin: "20px" }}>
+          <Content style={{margin: "20px 50px" }}>
             <Slide />
             <ToDoList />
           </Content>
