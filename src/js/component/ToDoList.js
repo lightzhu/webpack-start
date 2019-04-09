@@ -1,9 +1,10 @@
 import React from "react";
 import { List, Input, Typography, message, Icon } from "antd";
-import { createStore } from "redux";
-import todos from "../reducers/index";
+// import { createStore } from "redux";
+// import todos from "../reducers/index";
+// let store = createStore(todos); //根据reducer创建一个store
+import store from '../reducers/store';//将多个reduce组合后导入
 import { allTodo,addTodo, deleteTodo, completeTodo,didTodo,planTodo } from "../actions/index";
-let store = createStore(todos); //根据reducer创建一个store
 import { hot } from "react-hot-loader/root";
 import TodoHead from "./TodoHead";
 class ToDoList extends React.Component {

@@ -1,4 +1,3 @@
-import { combineReducers } from "redux";
 var list = [
   {
     index: 0,
@@ -74,6 +73,4 @@ const todos = (state = { list, msg: "" }, action) => {
       return state;
   }
 };
-export default combineReducers({
-  todos
-});
+export default todos;
