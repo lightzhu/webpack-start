@@ -3,6 +3,7 @@ import { Slider, InputNumber, Row, Col, Button, Icon } from "antd";
 // import { createStore } from "redux";
 import { hot } from "react-hot-loader/root";
 import store from "../reducers/store";
+let unsubscribe=null;
 function counter(state = 10, action) {
   switch (action.type) {
     case "INCREMENT":
@@ -65,11 +66,14 @@ class Slide extends React.Component {
     );
   }
   componentDidMount() {
-    store.subscribe(() => {
+    unsubscribe = store.subscribe(() => {
       this.setState({
         inputValue: store.getState().slider
       });
     });
+  }
+  componentWillUnmount() {
+    // unsubscribe();
   }
 }
 module.exports = hot(Slide);

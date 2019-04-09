@@ -1,7 +1,7 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
 import { Layout, Menu, Icon } from "antd";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import CityWeather from "./CityWeather";
 import ToDoList from "./ToDoList";
 const { SubMenu } = Menu;
@@ -59,8 +59,10 @@ class Body extends React.Component {
               </Sider>
             </Sider>
             <Content style={{ margin: "20px 50px" }}>
-              <Route exact path="/" component={ToDoList} />
-              <Route exact path="/CityWeather" component={CityWeather} />
+              <Switch>
+                <Route exact path="/" component={ToDoList} />
+                <Route path="/CityWeather" component={CityWeather} />
+              </Switch>
             </Content>
           </Layout>
         </Router>

@@ -3,11 +3,19 @@ import { List, Input, Typography, message, Icon } from "antd";
 // import { createStore } from "redux";
 // import todos from "../reducers/index";
 // let store = createStore(todos); //根据reducer创建一个store
-import store from '../reducers/store';//将多个reduce组合后导入
-import { allTodo,addTodo, deleteTodo, completeTodo,didTodo,planTodo } from "../actions/index";
+import store from "../reducers/store"; //将多个reduce组合后导入
+import {
+  allTodo,
+  addTodo,
+  deleteTodo,
+  completeTodo,
+  didTodo,
+  planTodo
+} from "../actions/index";
 import { hot } from "react-hot-loader/root";
 import TodoHead from "./TodoHead";
 import Slide from "./Slide";
+let unsubscribe=null;
 class ToDoList extends React.Component {
   state = {
     data: store.getState().todos.list,
@@ -34,11 +42,11 @@ class ToDoList extends React.Component {
     store.dispatch(deleteTodo(index));
   }
   changeType(type) {
-    if(type==='schedule'){
+    if (type === "schedule") {
       store.dispatch(planTodo());
-    }else if(type==='compele'){
+    } else if (type === "compele") {
       store.dispatch(didTodo());
-    }else{
+    } else {
       store.dispatch(allTodo());
     }
   }
@@ -61,9 +69,10 @@ class ToDoList extends React.Component {
             }}
           />
         </h3>
+        {/* header={<TodoHead changeType={this.changeType} />} */}
         <List
           size="large"
-          header={<TodoHead changeType={this.changeType} />}
+          header={<TodoHead changeType={this.changeType} />} 
           footer={<div>Footer</div>}
           dataSource={this.state.data}
           renderItem={item => {
@@ -97,16 +106,20 @@ class ToDoList extends React.Component {
       </div>
     );
   }
-  componentWillMount() {
+  componentWillUpdate() {
+    // unsubscribe();
     let that = this;
-    store.subscribe(() => {
+    unsubscribe = store.subscribe(() => {
       that.setState({
         data: store.getState().todos.list
       });
     });
   }
   componentDidMount() {
-    console.log(store.getState());
+    // console.log(store.getState());
+  }
+  componentWillUnmount() {
+    // unsubscribe();
   }
 }
 module.exports = hot(ToDoList);
