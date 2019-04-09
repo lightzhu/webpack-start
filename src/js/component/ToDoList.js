@@ -7,6 +7,7 @@ import store from '../reducers/store';//将多个reduce组合后导入
 import { allTodo,addTodo, deleteTodo, completeTodo,didTodo,planTodo } from "../actions/index";
 import { hot } from "react-hot-loader/root";
 import TodoHead from "./TodoHead";
+import Slide from "./Slide";
 class ToDoList extends React.Component {
   state = {
     data: store.getState().todos.list,
@@ -44,6 +45,7 @@ class ToDoList extends React.Component {
   render() {
     return (
       <div>
+        <Slide />
         <h3 style={{ margin: "16px 0", textAlign: "center" }}>
           <Input.Search
             className="add-input"
